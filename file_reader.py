@@ -50,6 +50,7 @@ class Spell:
             self.text.append(text[:text.find(match) + 1])
             text = text[text.find(match) + 1:]
         self.text.append(text)
+        # If any one paragraph is longer than the allowed maximum it get's split in the middle.
         for index, paragraph in enumerate(self.text):
             if len(paragraph) > file_printer.MAX_LENGTH:
                 split_paragraph = split_string_at_sentence_middle(paragraph)
