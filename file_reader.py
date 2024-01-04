@@ -31,6 +31,8 @@ class Spell:
         if " (ritual)" in school:
             self.ritual = "true"
             school = school.replace(" (ritual)", "")
+        if " (contaminated)" in school:
+            school = school.replace(" (contaminated)", "")
         # Get the abbreviation of each school from the enum
         self.school = School[school].value
         # Copy the casting time
@@ -40,9 +42,15 @@ class Spell:
         # Copy the range
         self.range_dnd = range_dnd
         # Copy the components unless there is a material one, in that case cut the description of what specifically
-        self.components = components[:8] if " M " in components else components
+        index_of_m = components.find('M')
+        self.components = components[:index_of_m + 1] if " M " in components else components
         # Copy both classes and optional classes if present
-        self.classes = classes if optional_variant_classes == "" else classes + " ," + optional_variant_classes
+        if optional_variant_classes == "":
+            self.classes = classes
+        elif classes == "":
+            self.classes = optional_variant_classes
+        else:
+            self.classes = classes + ", " + optional_variant_classes
         # Split the text when there is a line break and put it in a list and add the higher level description
         Spell.text = []
         Spell.paragraph_lengths = []

@@ -105,5 +105,5 @@ def print_file(file_path, spells):
     tree = ET.ElementTree(compendium)
 
     # Save the XML to a file
-    new_path = file_path.replace("Spells.csv", "Spells.xml")
+    new_path = file_path.replace(".csv", ".xml")
     tree.write(new_path, encoding="utf-8", xml_declaration=True)
